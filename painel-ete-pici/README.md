@@ -2,7 +2,7 @@
 
 Painel interativo desenvolvido como apoio ao TCC em Engenharia Ambiental (UFC). O arquivo `index.html` funciona direto no navegador, sem instalação.
 
-**Demonstração:** https://SEU-USUARIO.github.io/projetos-ia/painel-ete-pici/
+**Demonstração:** https://marisaqueiroz.github.io/projetos-ia/painel-ete-pici/
 
 ## Problema
 
