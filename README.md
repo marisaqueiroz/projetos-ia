@@ -4,8 +4,7 @@
 
 Repositório com projetos em que a IA foi aplicada a problemas reais de conformidade ambiental, gestão de resíduos, geoprocessamento e licenciamento. Em todos eles, a IA é direcionada por critérios técnicos definidos previamente, e os resultados passam por conferência humana antes de qualquer uso.
 
-> **Demonstrações online:** [painel da ETE](https://SEU-USUARIO.github.io/projetos-ia/painel-ete-pici/) · [painel Dose Certa](https://SEU-USUARIO.github.io/projetos-ia/painel-dose-certa/)
-> (substituir `SEU-USUARIO` pelo nome de usuário do GitHub)
+> **Demonstrações online:** [painel da ETE](https://marisaqueiroz.github.io/projetos-ia/painel-ete-pici/) · [painel Dose Certa](https://marisaqueiroz.github.io/projetos-ia/painel-dose-certa/)
 
 ## Projetos
 
