@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dose Certa — Painel do resíduo de terra</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#1c2430;--mut:#5d6b7c;--navy:#1f3864;--blue:#2f6fb5;--red:#c0392b;--amb:#d98e04;--grn:#2e8b57;--line:#e2e6ec}
+*{box-sizing:border-box}body{margin:0;font-family:Calibri,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:var(--navy);color:#fff;padding:22px 20px}header h1{margin:0 0 4px;font-size:24px}header p{margin:0;opacity:.85;font-size:14px}
+main{max-width:1100px;margin:0 auto;padding:18px 16px 40px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}.kpi small{color:var(--mut);display:block;font-size:12px}.kpi b{font-size:24px;color:var(--navy)}.kpi span{display:block;font-size:12px;color:var(--mut);margin-top:2px}
+.filtro{margin:0 0 14px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:14px}
+.filtro button{border:1px solid var(--line);background:#fff;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:14px}.filtro button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(480px,1fr));gap:14px}
+@media(max-width:560px){.grid{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}.card h2{margin:0 0 2px;font-size:16px}.card p{margin:0 0 8px;color:var(--mut);font-size:12.5px}
+.card canvas{width:100%!important;height:280px!important}
+.nota{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-top:16px;font-size:13.5px;line-height:1.5}.nota h3{margin:0 0 6px;font-size:15px}.nota ul{margin:6px 0 0 18px;padding:0}
+footer{color:var(--mut);font-size:12px;text-align:center;margin-top:18px}
+</style></head><body>
+<header><h1>Dose Certa — resíduo de terra da refinaria</h1><p>2º lugar, Ciência de Dados, O-HACKA-TA-ON 2025 (M. Dias Branco) · jan/2024 a jul/2025 · valores consolidados por mês, com bases validadas</p></header>
+<main>
+<div class="filtro">Período: <button data-f="all" class="on">Todo o período</button><button data-f="2024">2024</button><button data-f="2025">2025 (jan–jul)</button></div>
+<div class="kpis" id="kpis"></div>
+<div class="grid">
+<div class="card"><h2>Resíduo real × esperado (t)</h2><p>Esperado = insumos dosados + 30% de óleo retido no resíduo.</p><canvas id="c1"></canvas></div>
+<div class="card"><h2>Perda de óleo estimada (R$/mês)</h2><p>Excesso × 30% de óleo × R$ 6,60/kg. Valores negativos: resíduo abaixo do esperado.</p><canvas id="c2"></canvas></div>
+<div class="card"><h2>Terra natural: dosagem real × calculada (t)</h2><p>Calculada = vazão do processo × set-point (ST-One).</p><canvas id="c3"></canvas></div>
+<div class="card"><h2>Índice de geração (kg de resíduo por t produzida)</h2><p>Resíduo do quadro (SINIR) ÷ produção total do mês.</p><canvas id="c4"></canvas></div>
+</div>
+<div class="nota"><h3>Como ler e o que foi validado</h3>
+<ul>
+<li>Método único nos dois anos: resíduo esperado = terra acidificada + terra natural + perlita + catalisador de níquel + sílica + metilato + 30% do resíduo real.</li>
+<li>Custo logístico do excesso = excesso do mês × R$/t de transporte e destinação do mesmo mês. Janeiro a abril/2024 usam tarifa estimada de destinação (MTRs sem custo registrado).</li>
+<li>Bases revisadas: unidades de produção, MTRs canceladas e duplicadas, método de cálculo de 2025 e indicador kg/t. Ago e set/2025 ficaram fora até a confirmação dos dados.</li>
+<li>Os valores em reais são estimativas e dependem das premissas de 30% de óleo no excesso e R$ 6,60/kg.</li>
+</ul></div>
+<footer>Dados consolidados por mês; bases detalhadas, fornecedores e preços unitários não são publicados.</footer>
+</main>
+<script>
+const D=[{"l": "jan/24", "ano": 2024, "res": 197.56, "esp": 184.153, "exc": 13.407, "oleo": 26546, "log": 4181, "idx": 16.291, "tn": 78.75, "tc": 65.291, "tnrs": 14132}, {"l": "fev/24", "ano": 2024, "res": 198.42, "esp": 189.011, "exc": 9.409, "oleo": 18630, "log": 2746, "idx": 15.005, "tn": 83.75, "tc": 50.063, "tnrs": 35371}, {"l": "mar/24", "ano": 2024, "res": 225.793, "esp": 174.738, "exc": 51.055, "oleo": 101089, "log": 15438, "idx": 14.729, "tn": 73.75, "tc": 79.003, "tnrs": -5516}, {"l": "abr/24", "ano": 2024, "res": 273.16, "esp": 211.288, "exc": 61.872, "oleo": 122507, "log": 17814, "idx": 22.27, "tn": 86.25, "tc": 69.066, "tnrs": 18043}, {"l": "mai/24", "ano": 2024, "res": 181.5, "esp": 156.445, "exc": 25.055, "oleo": 49609, "log": 7325, "idx": 15.554, "tn": 67.5, "tc": 66.025, "tnrs": 1549}, {"l": "jun/24", "ano": 2024, "res": 205.37, "esp": 192.119, "exc": 13.251, "oleo": 26237, "log": 4172, "idx": 14.978, "tn": 88.75, "tc": 84.013, "tnrs": 4974}, {"l": "jul/24", "ano": 2024, "res": 234.66, "esp": 204.158, "exc": 30.502, "oleo": 60394, "log": 8923, "idx": 18.126, "tn": 105.0, "tc": 100.942, "tnrs": 4261}, {"l": "ago/24", "ano": 2024, "res": 100.47, "esp": 96.641, "exc": 3.829, "oleo": 7581, "log": 1293, "idx": 16.007, "tn": 42.5, "tc": 35.617, "tnrs": 7227}, {"l": "set/24", "ano": 2024, "res": 130.52, "esp": 126.221, "exc": 4.299, "oleo": 8512, "log": 1069, "idx": 18.206, "tn": 65.0, "tc": 38.88, "tnrs": 27426}, {"l": "out/24", "ano": 2024, "res": 101.09, "esp": 98.937, "exc": 2.153, "oleo": 4263, "log": 548, "idx": 16.758, "tn": 48.75, "tc": 23.757, "tnrs": 26243}, {"l": "nov/24", "ano": 2024, "res": 99.39, "esp": 102.582, "exc": -3.192, "oleo": -6320, "log": -894, "idx": 15.278, "tn": 60.0, "tc": 70.426, "tnrs": -10947}, {"l": "dez/24", "ano": 2024, "res": 103.49, "esp": 90.297, "exc": 13.193, "oleo": 26122, "log": 3837, "idx": 19.272, "tn": 41.25, "tc": 25.051, "tnrs": 17009}, {"l": "jan/25", "ano": 2025, "res": 110.42, "esp": 110.436, "exc": -0.016, "oleo": -32, "log": -5, "idx": 14.696, "tn": 45.0, "tc": 29.032, "tnrs": 21078}, {"l": "fev/25", "ano": 2025, "res": 104.31, "esp": 97.468, "exc": 6.842, "oleo": 13547, "log": 1947, "idx": 15.12, "tn": 36.25, "tc": 23.823, "tnrs": 16403}, {"l": "mar/25", "ano": 2025, "res": 85.82, "esp": 77.781, "exc": 8.039, "oleo": 15917, "log": 2528, "idx": 14.186, "tn": 26.25, "tc": 15.544, "tnrs": 14132}, {"l": "abr/25", "ano": 2025, "res": 78.79, "esp": 84.357, "exc": -5.567, "oleo": -11023, "log": -1923, "idx": 13.251, "tn": 36.25, "tc": 18.41, "tnrs": 23548}, {"l": "mai/25", "ano": 2025, "res": 87.14, "esp": 75.527, "exc": 11.613, "oleo": 22994, "log": 3862, "idx": 12.868, "tn": 13.75, "tc": 16.2, "tnrs": -3233}, {"l": "jun/25", "ano": 2025, "res": 254.77, "esp": 233.576, "exc": 21.194, "oleo": 41964, "log": 6017, "idx": 14.814, "tn": 108.75, "tc": 99.462, "tnrs": 12260}, {"l": "jul/25", "ano": 2025, "res": 307.6, "esp": 309.075, "exc": -1.475, "oleo": -2920, "log": -390, "idx": 18.313, "tn": 160.0, "tc": 138.793, "tnrs": 27993}];
+const fmt=(n,d=0)=>n.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const sum=(a,k)=>a.reduce((s,x)=>s+x[k],0);
+let ch=[];
+function sel(f){return f==='all'?D:D.filter(x=>String(x.ano)===f)}
+function kpis(d){
+  const acima=d.filter(x=>x.exc>0).length;
+  const prod=d.reduce((s,x)=>s+x.res/x.idx*1000,0);
+  const k=[['Excesso de resíduo',fmt(sum(d,'exc'),1)+' t','líquido, '+acima+' de '+d.length+' meses acima do esperado'],
+  ['Perda de óleo estimada','R$ '+fmt(sum(d,'oleo')/1000)+' mil','30% de óleo × R$ 6,60/kg'],
+  ['Terra natural acima do calculado','R$ '+fmt(sum(d,'tnrs')/1000)+' mil',fmt(sum(d,'tn')-sum(d,'tc'),1)+' t a mais'],
+  ['Logística do excesso','R$ '+fmt(sum(d,'log')/1000)+' mil','transporte e destinação'],
+  ['Impacto total estimado','R$ '+fmt((sum(d,'oleo')+sum(d,'tnrs')+sum(d,'log'))/1000)+' mil','óleo + terra + logística'],
+  ['Índice de geração',fmt(sum(d,'res')/(prod/1000)*1,1).replace(/^/,'')+' kg/t','resíduo ÷ produção do período']];
+  document.getElementById('kpis').innerHTML=k.map(x=>`<div class="kpi"><small>${x[0]}</small><b>${x[1]}</b><span>${x[2]}</span></div>`).join('');
+}
+function build(f){
+  const d=sel(f); kpis(d); ch.forEach(c=>c.destroy()); ch=[];
+  const L=d.map(x=>x.l), o={responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}}};
+  ch.push(new Chart(c1,{type:'bar',data:{labels:L,datasets:[{label:'Resíduo real (t)',data:d.map(x=>x.res),backgroundColor:'#2f6fb5'},{label:'Resíduo esperado (t)',data:d.map(x=>x.esp),type:'line',borderColor:'#d98e04',backgroundColor:'#d98e04',tension:.25}]},options:o}));
+  ch.push(new Chart(c2,{type:'bar',data:{labels:L,datasets:[{label:'Perda de óleo (R$)',data:d.map(x=>x.oleo),backgroundColor:d.map(x=>x.oleo>=0?'#c0392b':'#2e8b57')}]},options:{...o,plugins:{legend:{display:false}}}}));
+  ch.push(new Chart(c3,{type:'bar',data:{labels:L,datasets:[{label:'Real (t)',data:d.map(x=>x.tn),backgroundColor:'#2f6fb5'},{label:'Calculada (t)',data:d.map(x=>x.tc),backgroundColor:'#9db8d8'}]},options:o}));
+  ch.push(new Chart(c4,{type:'line',data:{labels:L,datasets:[{label:'kg/t',data:d.map(x=>x.idx),borderColor:'#1f3864',backgroundColor:'#1f3864',tension:.25}]},options:{...o,plugins:{legend:{display:false}}}}));
+}
+document.querySelectorAll('.filtro button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.filtro button').forEach(x=>x.classList.remove('on'));b.classList.add('on');build(b.dataset.f)});
+build('all');
+</script></body></html>
