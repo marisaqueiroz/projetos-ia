@@ -2,7 +2,7 @@
 
 Versão em página web do painel do projeto **Dose Certa** (2º lugar, Ciência de Dados, O-HACKA-TA-ON 2025, M. Dias Branco), com valores consolidados por mês e bases já validadas.
 
-**Demonstração online:** https://SEU-USUARIO.github.io/projetos-ia/painel-dose-certa/
+**Demonstração online:** https://marisaqueiroz.github.io/projetos-ia/painel-dose-certa/
 
 ## O que o painel mostra
 
