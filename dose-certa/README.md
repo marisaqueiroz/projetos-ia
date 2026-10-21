@@ -2,7 +2,7 @@
 
 **2º lugar na categoria Ciência de Dados do O-HACKA-TA-ON 2025 (M. Dias Branco).** Projeto em dupla, com continuidade em andamento.
 
-> As bases de dados detalhadas e o arquivo do Power BI não são publicados, por pertencerem à empresa. Este README descreve o método e os resultados. Uma versão web do painel, com valores consolidados por mês, está em [painel-dose-certa](../painel-dose-certa/) ([demonstração online](https://SEU-USUARIO.github.io/projetos-ia/painel-dose-certa/)).
+> As bases de dados detalhadas e o arquivo do Power BI não são publicados, por pertencerem à empresa. Este README descreve o método e os resultados. Uma versão web do painel, com valores consolidados por mês, está em [painel-dose-certa](../painel-dose-certa/) ([demonstração online](https://marisaqueiroz.github.io/projetos-ia/painel-dose-certa/)).
 
 ## Problema
 
